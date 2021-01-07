@@ -33,6 +33,8 @@ if RSpec::Rails::FeatureCheck.has_active_job?
 end
 
 RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_active_job? do
+  include ActiveSupport::Testing::TimeHelpers
+
   around do |example|
     original_logger = ActiveJob::Base.logger
     ActiveJob::Base.logger = Logger.new(nil) # Silence messages "[ActiveJob] Enqueued ...".
@@ -221,6 +223,25 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       expect {
         hello_job.set(wait_until: time).perform_later
       }.to have_enqueued_job.at(time)
+    end
+
+    it "works with time offsets" do
+      # note that Time.current does not replicate Rails behavior for 5 seconds from now.
+      time = Time.current.change(usec: 0)
+      travel_to time do
+        expect { hello_job.set(wait: 5).perform_later }.to have_enqueued_job.at(time + 5)
+      end
+    end
+
+    it "warns when time offsets are inprecise" do
+      expect(RSpec).to receive(:warn_with).with(/precision error/)
+
+      time = Time.current.change(usec: 550)
+      travel_to time do
+        expect {
+          expect { hello_job.set(wait: 5).perform_later }.to have_enqueued_job.at(time + 5)
+        }.to raise_error(/expected to enqueue exactly 1 jobs/)
+      end
     end
 
     it "accepts composable matchers as an at date" do

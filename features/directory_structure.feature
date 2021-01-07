@@ -4,14 +4,23 @@ Feature: Directory Structure
   their purpose:
 
   - [Model specs](model-specs) reside in the `spec/models` directory
+
   - [Controller specs](controller-specs) reside in the `spec/controllers` directory
+
   - [Request specs](request-specs) reside in the `spec/requests` directory. The directory can also be named `integration` or `api`.
+
   - [Feature specs](feature-specs) reside in the `spec/features` directory
+
   - [View specs](view-specs) reside in the `spec/views` directory
+
   - [Helper specs](helper-specs) reside in the `spec/helpers` directory
+
   - [Mailer specs](mailer-specs) reside in the `spec/mailers` directory
+
   - [Routing specs](routing-specs) reside in the `spec/routing` directory
+
   - [Job specs](job-specs) reside in the `spec/jobs` directory
+
   - [System specs](system-specs) reside in the `spec/system` directory
 
   Application developers are free to use a different directory structure. In
@@ -54,7 +63,7 @@ Feature: Directory Structure
   their location on the filesystem. This was both confusing to new users and not
   desirable for some veteran users.
 
-  In RSpec 3, this behavior must be explicitly enabled:
+  This behaviour must be explicitly enabled:
 
   ```ruby
   ​# spec/rails_helper.rb

@@ -45,6 +45,7 @@ module ExampleAppHooks
     def final_tasks
       copy_file 'spec/verify_no_active_record_spec.rb'
       copy_file 'spec/verify_no_fixture_setup_spec.rb'
+      copy_file 'spec/verify_fixture_file_upload_spec.rb'
     end
 
     def skip_active_record?
@@ -102,6 +103,12 @@ generate('controller things custom_action')
 using_source_path(File.expand_path(__dir__)) do
   # rspec-core loads files alphabetically, so we want this to be the first one
   copy_file 'spec/features/model_mocks_integration_spec.rb'
+end
+
+begin
+  require 'action_mailbox'
+  run('rails action_mailbox:install')
+rescue LoadError
 end
 
 begin

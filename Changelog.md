@@ -1,5 +1,20 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0...master)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.1...master)
+
+Enhancements:
+
+* Issue a warning when using job matchers with `#at` mis-match on `usec` precision.
+  (Jon Rowe, #2350)
+
+Bug Fixes:
+
+* Indent all extra failure lines output from system specs. (Alex Robbin, #2321)
+* Generated request spec for update now uses the correct let. (Paul Hanyzewski, #2344)
+* Return `true`/`false` from predicate methods in config rather than raw values.
+  (Phil Pirozhkov, Jon Rowe, #2353, #2354)
+
+### 4.0.1 / 2020-05-16
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0...v4.0.1)
 
 Bug Fixes:
 
@@ -7,6 +22,8 @@ Bug Fixes:
 * Fix comparison of times for `#at` in job matchers. (Jon Rowe, Markus Doits, #2304)
 * Allow `have_enqueued_mail` to match when a sub class of `ActionMailer::DeliveryJob`
   is set using `<Class>.delivery_job=`. (Atsushi Yoshida #2305)
+* Restore Ruby 2.2.x compatibility. (Jon Rowe, #2332)
+* Add `required_ruby_version` to gem spec. (Marc-André Lafortune, #2319, #2338)
 
 ### 4.0.0 / 2020-03-24
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.9.1...v4.0.0)
